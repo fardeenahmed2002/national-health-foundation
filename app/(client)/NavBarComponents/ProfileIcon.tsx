@@ -39,13 +39,11 @@ const ProfileIcon = () => {
                     )}
                 </div>
             ) : (
-                <Link
-                    href="#"
-                    onClick={() => setIsloggedin(true)}
-                    className="bg-[#803abd] text-white px-4 py-2 rounded-full hover:bg-[#BC71FF] transition-all"
-                >
-                    Login
-                </Link>
+
+                <div className="bg-[#803abd] text-white px-4 py-2 rounded-full">
+                    <Link href="/signup" className="hover:underline">Login</Link> | <Link href={'/'} className="hover:underline">Signup</Link>
+                </div>
+
             )}
         </div>
     );

@@ -27,7 +27,6 @@ export default function RootLayout({
       <body cz-shortcut-listen="true"
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <h1>this is signup layout</h1>
         {children}
       </body>
     </html>
