@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext } from 'react'
 import { Context } from '@/contextApi/ContextProvider'
-const page = () => {
+const Page = () => {
     const { user } = useContext(Context)
     return (
         <div>
@@ -16,4 +16,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

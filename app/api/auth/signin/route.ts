@@ -28,6 +28,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
         }
         return isLoggedIn(req)
     } catch (error) {
+        console.log(error)
         return NextResponse.json({
             success: false,
             message: 'server error'
