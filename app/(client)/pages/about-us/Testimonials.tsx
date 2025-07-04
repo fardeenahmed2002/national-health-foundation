@@ -5,19 +5,19 @@ import { useState } from "react";
 const testimonials = [
   {
     quote:
-      "CuraLink provided me timely medical support when I had nowhere else to turn. Their team’s compassion and professionalism changed my life.",
+      "“CuraLink provided me timely medical support when I had nowhere else to turn. Their team’s compassion and professionalism changed my life.”",
     name: "Rahim Uddin",
     role: "Patient",
   },
   {
     quote:
-      "Partnering with CuraLink has empowered our NGO to reach more people in need with verified and transparent aid distribution.",
+      "“Partnering with CuraLink has empowered our NGO to reach more people in need with verified and transparent aid distribution.”",
     name: "Sadia Islam",
     role: "NGO Coordinator",
   },
   {
     quote:
-      "Thanks to CuraLink, our community now has easier access to essential healthcare services — a true game-changer.",
+      "“Thanks to CuraLink, our community now has easier access to essential healthcare services — a true game-changer.”",
     name: "Dr. Kamal Ahmed",
     role: "Volunteer Doctor",
   },
@@ -47,10 +47,17 @@ const Testimonials = () => {
 
       <div className="max-w-3xl mx-auto relative">
         <blockquote className="bg-[#0E1724] rounded-2xl p-10 shadow-lg">
-          <p className="text-lg italic mb-6">"{testimonials[current].quote}"</p>
+          <p className="text-lg italic mb-6">
+            {testimonials[current].quote}
+          </p>
           <footer className="text-right">
-            <cite className="font-semibold">{testimonials[current].name}</cite>,{" "}
-            <span className="text-gray-400">{testimonials[current].role}</span>
+            <cite className="font-semibold">
+              {testimonials[current].name}
+            </cite>
+            ,{" "}
+            <span className="text-gray-400">
+              {testimonials[current].role}
+            </span>
           </footer>
         </blockquote>
 
