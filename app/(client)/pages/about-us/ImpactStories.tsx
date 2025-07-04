@@ -46,7 +46,7 @@ const ImpactStories = () => {
               className="w-24 h-24 rounded-full mb-6 object-cover"
               loading="lazy"
             />
-            <p className="italic text-gray-300 mb-6 text-center">'{quote}'</p>
+            <p className="italic text-gray-300 mb-6 text-center">&quot;{quote}&quot;</p>
             <h3 className="text-xl font-semibold">{name}</h3>
             <p className="text-gray-400 text-sm">{role}</p>
           </div>
