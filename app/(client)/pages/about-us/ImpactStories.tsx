@@ -6,21 +6,21 @@ const stories = [
     role: "Patient",
     photo: "/stories/amina.jpg",
     quote:
-      "Thanks to CuraLink, I received life-saving treatment I never thought possible. They truly care about people like me.",
+      `Thanks to CuraLink, I received life-saving treatment I never thought possible. They truly care about people like me.`,
   },
   {
     name: "Dr. Kamal Hossain",
     role: "Volunteer Doctor",
     photo: "/stories/kamal.jpg",
     quote:
-      "Volunteering with CuraLink allows me to give back to my community in a meaningful way. Their platform makes help accessible.",
+      `Volunteering with CuraLink allows me to give back to my community in a meaningful way. Their platform makes help accessible.`,
   },
   {
     name: "Nazmul Islam",
     role: "Community Organizer",
     photo: "/stories/nazmul.jpg",
     quote:
-      "Seeing the impact CuraLink has on underserved communities motivates me every day to keep pushing for change.",
+      `Seeing the impact CuraLink has on underserved communities motivates me every day to keep pushing for change.`,
   },
 ];
 
@@ -46,7 +46,7 @@ const ImpactStories = () => {
               className="w-24 h-24 rounded-full mb-6 object-cover"
               loading="lazy"
             />
-            <p className="italic text-gray-300 mb-6 text-center">&quot;{quote}&quot;</p>
+            <p className="italic text-gray-300 mb-6 text-center"><b>{quote}</b></p>
             <h3 className="text-xl font-semibold">{name}</h3>
             <p className="text-gray-400 text-sm">{role}</p>
           </div>

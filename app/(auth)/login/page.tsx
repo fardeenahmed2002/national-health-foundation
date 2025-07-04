@@ -37,11 +37,17 @@ const PatientSignupPage = () => {
                 toast.success(data.message)
                 navigate.push('/')
             }
-        } catch (error: any) {
-            setLoading(false)
-            const errMessage = error.response?.data?.message || "Something went wrong"
-            toast.error(errMessage)
-        } finally {
+        } catch (error: unknown) {
+            setLoading(false);
+            if (axios.isAxiosError(error)) {
+                const errMessage = error.response?.data?.message || "Something went wrong";
+                toast.error(errMessage);
+                setLoading(false)
+            } else {
+                toast.error("An unexpected error occurred");
+            }
+        }
+        finally {
             setLoading(false)
         }
     }
