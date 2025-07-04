@@ -1,46 +1,35 @@
 "use client";
 import React, { useContext, useState } from "react"
 import axios from 'axios'
-import { useRouter } from "next/navigation"
-import Loader from "@/components/Loader"
-import { toast } from "react-toastify"
+import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
+import { toast } from "react-toastify";
 import { Context } from "@/contextApi/ContextProvider";
 type FormData = {
-    fullName: string,
     email: string,
     password: string,
-    phone: string,
-    address: string,
-    role: string,
 }
+
 const PatientSignupPage = () => {
     const [formData, setFormData] = useState<FormData>({
-        fullName: "",
         email: "",
         password: "",
-        phone: "",
-        address: "",
-        role: 'patient'
     })
     const [loading, setLoading] = useState<boolean>(false)
     const navigate = useRouter()
     const { getuserdata, setIsloggedin } = useContext(Context)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    };
 
     const handleSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault()
         setLoading(true)
 
         try {
-            const { data } = await axios.post('/api/auth/signup', {
-                name: formData.fullName,
+            const { data } = await axios.post('/api/auth/signin', {
                 email: formData.email,
                 password: formData.password,
-                phone: formData.phone,
-                address: formData.address,
-                role: formData.role
             })
             if (data.success) {
                 setIsloggedin(true)
@@ -49,6 +38,7 @@ const PatientSignupPage = () => {
                 navigate.push('/')
             }
         } catch (error: any) {
+            setLoading(false)
             const errMessage = error.response?.data?.message || "Something went wrong"
             toast.error(errMessage)
         } finally {
@@ -65,14 +55,7 @@ const PatientSignupPage = () => {
                 <h2 className="text-2xl font-bold mb-6 text-center">Patient Signup</h2>
 
                 <div className="space-y-4">
-                    <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Full Name"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-[#1c2a3a] text-white focus:outline-none focus:ring-2 focus:ring-[#BB71FF]"
-                    />
+
                     <input
                         type="email"
                         name="email"
@@ -89,24 +72,7 @@ const PatientSignupPage = () => {
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl bg-[#1c2a3a] text-white focus:outline-none focus:ring-2 focus:ring-[#BB71FF]"
                     />
-                    <input
-                        type="text"
-                        name="phone"
-                        placeholder="Phone Number"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-[#1c2a3a] text-white focus:outline-none focus:ring-2 focus:ring-[#BB71FF]"
-                    />
-                    <input
-                        type="text"
-                        name="address"
-                        placeholder="Address"
-                        value={formData.address}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-[#1c2a3a] text-white focus:outline-none focus:ring-2 focus:ring-[#BB71FF]"
-                    />
                 </div>
-
                 {
                     loading ? (
                         <button
@@ -121,19 +87,20 @@ const PatientSignupPage = () => {
                             type="submit"
                             className="mt-6 w-full bg-[#BB71FF] hover:bg-purple-600 text-white font-semibold py-3 rounded-xl transition-all"
                         >
-                            Sign Up
+                            Log in
                         </button>
                         )
                 }
                 <p className="mt-4 text-center text-sm text-gray-400">
-                    Already have an account?{" "}
+                    Don’t have an account?{" "}
                     <span
                         className="text-[#BB71FF] cursor-pointer hover:underline"
-                        onClick={() => navigate.push("/login")}
+                        onClick={() => navigate.push("/signup")}
                     >
-                        Log in
+                        Sign up
                     </span>
                 </p>
+
             </form>
         </div>
     );

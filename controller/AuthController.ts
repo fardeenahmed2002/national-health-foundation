@@ -1,6 +1,6 @@
 import { Usermodel } from "@/model/UserModel"
 import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv";
 import path from "path";
@@ -18,12 +18,16 @@ export const signup = async (
 ): Promise<NextResponse> => {
     try {
 
-        isMissing(name, 'name')
-        isMissing(email, 'email')
-        isMissing(password, 'password')
-        isMissing(phone, 'phone')
-        isMissing(address, 'address')
-        isMissing(role, 'role')
+        const MissingFields = isMissing(
+            [name, 'name'],
+            [email, 'email'],
+            [password, 'password'],
+            [phone, 'phone'],
+            [address, 'address'],
+            [role, 'role']
+        )
+
+        if (MissingFields) return MissingFields
 
         const existingUser = await Usermodel.findOne({ email })
         const existingPhoneNumber = await Usermodel.findOne({ phone })
@@ -50,46 +54,34 @@ export const signup = async (
                 isPatient: true,
             }),
         })
-
         await user.save()
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: email,
             subject: "Welcome to Cura Link – Your Health Companion",
             html: `
-                            <div style="font-family:Arial, sans-serif; padding: 30px; background-color:#f4f6f8; color:#1a1a1a; line-height:1.6;">
-                            <div style="text-align: center; margin-bottom: 30px;">
-                                <img src="cid:curalinklogo" alt="Cura Link Logo" style="width: 120px; height: auto;" />
-                            </div>
+                    <div style="font-family:Arial, sans-serif; padding: 30px; background-color:#f4f6f8; color:#1a1a1a; line-height:1.6;">
+                    <h2 style="color:#111926; text-align: center;">Welcome to <span style="color:#BB71FF;">Cura Link</span></h2>
 
-                            <h2 style="color:#111926; text-align: center;">Welcome to <span style="color:#BB71FF;">Cura Link</span></h2>
+                    <p style="font-size: 16px;">Hello <strong>${name}</strong>,</p>
 
-                            <p style="font-size: 16px;">Hello <strong>${name}</strong>,</p>
+                    <p style="font-size: 16px;">
+                        Thank you for joining <strong>Cura Link</strong>. Your account has been successfully created!
+                        We're committed to connecting you with the resources you need to stay informed and healthy.
+                    </p>
 
-                            <p style="font-size: 16px;">
-                                Thank you for joining <strong>Cura Link</strong>. Your account has been successfully created!
-                                We're committed to connecting you with the resources you need to stay informed and healthy.
-                            </p>
+                    <div style="margin: 20px 0; padding: 15px; background-color: #eaf6ff; border-left: 4px solid #49B3DB;">
+                        <p style="margin: 0;">Get started by exploring your personalized health dashboard and curated articles.</p>
+                    </div>
 
-                            <div style="margin: 20px 0; padding: 15px; background-color: #eaf6ff; border-left: 4px solid #49B3DB;">
-                                <p style="margin: 0;">Get started by exploring your personalized health dashboard and curated articles.</p>
-                            </div>
+                    <p style="font-size: 16px;">If you have any questions, feel free to reach out to our support team.</p>
 
-                            <p style="font-size: 16px;">If you have any questions, feel free to reach out to our support team.</p>
-
-                            <p style="margin-top: 40px; font-size: 16px;">
-                                Stay healthy and empowered,<br/>
-                                <strong>The Cura Link Team</strong>
-                            </p>
-                            </div> `,
-            attachments: [{
-                filename: 'logo.png',
-                path: 'public/logo.png',
-                cid: 'curalinklogo'
-            }]
+                    <p style="margin-top: 40px; font-size: 16px;">
+                        Stay healthy and empowered,<br/>
+                        <strong>The Cura Link Team</strong>
+                    </p>
+                    </div>`
         }
-
-
         await transporter.sendMail(mailOptions)
 
         const secret = process.env.JWT_SECRET
@@ -99,7 +91,7 @@ export const signup = async (
         const token = jwt.sign({ id: user._id }, secret, { expiresIn: "7d" })
 
         const response = NextResponse.json({
-            message: `Login successful`,
+            message: `Registration successfull`,
             success: true,
             user,
             token
@@ -124,12 +116,13 @@ export const signup = async (
     }
 }
 
-
 export const login = async (email: string, password: string): Promise<NextResponse> => {
     try {
-
-        isMissing(email, 'email')
-        isMissing(password, 'password')
+        const MissingFields = isMissing(
+            [email, 'email'],
+            [password, 'password']
+        )
+        if (MissingFields) return MissingFields
 
         const user = await Usermodel.findOne({ email })
         if (!user) {
@@ -198,6 +191,21 @@ export const logout = async (): Promise<NextResponse> => {
             success: false,
             message: `server error`,
             error: (error as Error).message
+        }, { status: 500 })
+    }
+}
+
+export const isLoggedIn = async (req: NextRequest): Promise<NextResponse> => {
+    try {
+        return NextResponse.json({
+            success: true,
+            message: "account authenticated"
         })
+    } catch (error) {
+        return NextResponse.json({
+            success: false,
+            message: 'server error',
+            error: (error as Error).message
+        }, { status: 500 })
     }
 }
