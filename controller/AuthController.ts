@@ -8,6 +8,7 @@ import transporter from "@/utils/NodeMailer";
 import { isMissing } from "@/utils/MissingFields"
 import { CheckEnv } from "@/utils/CheckEnv";
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
 export const signup = async (
     name: string,
     email: string,
@@ -17,7 +18,6 @@ export const signup = async (
     role: string
 ): Promise<NextResponse> => {
     try {
-
         const MissingFields = isMissing(
             [name, 'name'],
             [email, 'email'],
@@ -88,8 +88,10 @@ export const signup = async (
         if (!secret) {
             throw new Error("JWT_SECRET not defined in environment variables")
         }
-        const token = jwt.sign({ id: user._id }, secret, { expiresIn: "7d" })
-
+        const token = jwt.sign({
+            id: user._id,
+            isPatient: user.isPatient,
+        }, secret, { expiresIn: "7d" })
         const response = NextResponse.json({
             message: `Registration successfull`,
             success: true,
@@ -143,6 +145,7 @@ export const login = async (email: string, password: string): Promise<NextRespon
             {
                 id: user._id,
                 role: user.role,
+                isPatient: user.isPatient,
             },
             process.env.JWT_SECRET!,
             { expiresIn: `7d` }

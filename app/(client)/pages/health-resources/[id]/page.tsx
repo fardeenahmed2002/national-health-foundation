@@ -5,7 +5,7 @@ import { allArticles } from "./articles";
 import Image from "next/image";
 
 const ArticlePage = () => {
-  const { id } = useParams();
+  const { id } = useParams() as { id: string };
   const titleFromUrl = id?.toString().split("-").join(" ");
 
   const article = allArticles.find(

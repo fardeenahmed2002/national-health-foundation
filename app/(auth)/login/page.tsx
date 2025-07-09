@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import axios from 'axios'
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
@@ -17,7 +17,7 @@ const PatientSignupPage = () => {
     })
     const [loading, setLoading] = useState<boolean>(false)
     const navigate = useRouter()
-    const { getuserdata, setIsloggedin } = useContext(Context)
+    const { getuserdata, setIsloggedin, user } = useContext(Context)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -33,9 +33,8 @@ const PatientSignupPage = () => {
             })
             if (data.success) {
                 setIsloggedin(true)
-                getuserdata()
+                await getuserdata()
                 toast.success(data.message)
-                navigate.push('/')
             }
         } catch (error: unknown) {
             setLoading(false);
@@ -51,14 +50,18 @@ const PatientSignupPage = () => {
             setLoading(false)
         }
     }
-
+    useEffect(() => {
+        if (user?.isPatient) {
+            navigate.push('/patient')
+        }
+    }, [user])
     return (
         <div className="min-h-screen bg-[#111926] text-white flex items-center justify-center px-4">
             <form
                 onSubmit={handleSubmit}
                 className="bg-[#0E1724] p-8 rounded-2xl shadow-xl w-full max-w-md"
             >
-                <h2 className="text-2xl font-bold mb-6 text-center">Patient Signup</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">Login an Account</h2>
 
                 <div className="space-y-4">
 

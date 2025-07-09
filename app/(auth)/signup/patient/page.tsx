@@ -46,10 +46,10 @@ const PatientSignupPage = () => {
                 setIsloggedin(true)
                 getuserdata()
                 toast.success(data.message)
-                navigate.push('/')
+                navigate.push('/patient')
             }
         } catch (error: unknown) {
-            setLoading(false);
+            setLoading(false)
             if (axios.isAxiosError(error)) {
                 const errMessage = error.response?.data?.message || "Something went wrong";
                 toast.error(errMessage)
