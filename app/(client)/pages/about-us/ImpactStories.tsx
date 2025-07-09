@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 const stories = [
   {
     name: "Amina Rahman",
@@ -40,10 +40,12 @@ const ImpactStories = () => {
             key={i}
             className="bg-[#0E1724] rounded-2xl p-8 shadow-lg flex flex-col items-center"
           >
-            <img
+            <Image
               src={photo}
               alt={`${name} photo`}
-              className="w-24 h-24 rounded-full mb-6 object-cover"
+              width={96}
+              height={96}
+              className="rounded-full mb-6 object-cover"
               loading="lazy"
             />
             <p className="italic text-gray-300 mb-6 text-center"><b>{quote}</b></p>

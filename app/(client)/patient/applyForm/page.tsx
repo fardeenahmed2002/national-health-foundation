@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Upload } from "lucide-react";
 import { toast } from "react-toastify";
+import Image from "next/image";
 type FormData = {
     fullName: string,
     age: number | string,
@@ -95,10 +96,12 @@ const MedicalAidForm = () => {
 
                         <div className="w-full md:w-1/2 h-[360px] relative">
                             {preview ? (
-                                <img
+                                <Image
                                     src={preview}
+                                    width={400}
+                                    height={360}
                                     alt="Prescription Preview"
-                                    className="w-full h-full object-cover rounded-xl shadow-md"
+                                    className="object-cover rounded-xl shadow-md"
                                 />
                             ) : (
                                 <div className="w-full h-full border border-dashed border-gray-500 rounded-xl flex items-center justify-center text-gray-400 bg-[#1c2333]">

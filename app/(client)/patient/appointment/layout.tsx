@@ -29,7 +29,7 @@ export default function AppointmentLayout({
         <html lang="en">
             <body
                 cz-shortcut-listen="true"
-                className="__variable_5cfdac __variable_9a8899 antialiased"
+                className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
             >
                 <ContextProvider>
                     <div className="min-h-screen bg-[#0E1724] text-white">
