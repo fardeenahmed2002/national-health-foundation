@@ -45,6 +45,7 @@ const MedicalAidForm = () => {
             condition: "",
             description: "",
         })
+        console.log(prescriptionImage)
         setPrescriptionImage(null)
         setPreview(null)
     }
