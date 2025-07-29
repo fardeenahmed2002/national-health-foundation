@@ -5,13 +5,14 @@ import { toast, ToastContainer } from "react-toastify"
 import axios from "axios"
 import Loader from "@/components/Loader"
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image"
 
 export default function NoticePage() {
     const [formData, setFormData] = useState({
         title: "",
         content: ""
     })
-    
+
     const [image, setImage] = useState<null | File>(null)
     const [preview, setPreview] = useState<null | string>(null)
     const [loading, setLoading] = useState(false)
@@ -78,7 +79,15 @@ export default function NoticePage() {
 
                 <div className="md:w-1/2 relative flex items-center justify-center bg-white/10 p-6">
                     {preview ? (
-                        <img src={preview} alt="Preview" className="rounded-xl object-cover w-full h-80 md:h-full" />
+                        <Image
+                            src={preview}
+                            alt="Preview"
+                            className="rounded-xl object-cover w-full h-80 md:h-full"
+                            width={500}         // or adjust to fit your layout
+                            height={320}
+                            priority
+                        />
+
                     ) : (
                         <div className="w-full h-80 md:h-full border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center text-gray-300">
                             No Image Selected

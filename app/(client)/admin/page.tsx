@@ -20,10 +20,15 @@ const AdminDashboard = () => {
       if (data.success) {
         setStats(data.stats);
       }
-    } catch (error) {
-      toast.error("Failed to load admin stats.");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errMessage = error.response?.data?.message || "Something went wrong";
+        toast.error(errMessage)
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
-  };
+  }
 
   useEffect(() => {
     getStats();

@@ -16,7 +16,7 @@ const PatientSignupPage = () => {
         password: "",
     })
     const [loading, setLoading] = useState<boolean>(false)
-    const navigate = useRouter()
+    const router = useRouter()
     const { getuserdata, setIsloggedin, user } = useContext(Context)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,12 +52,12 @@ const PatientSignupPage = () => {
     }
     useEffect(() => {
         if (user?.isPatient) {
-            navigate.push('/patient')
+            router.push('/patient')
         }
         if (user?.isAdmin) {
-            navigate.push('/admin')
+            router.push('/admin')
         }
-    }, [user])
+    }, [user, router])
     return (
         <div className="min-h-screen bg-[#111926] text-white flex items-center justify-center px-4">
             <form
@@ -107,7 +107,7 @@ const PatientSignupPage = () => {
                     Don’t have an account?{" "}
                     <span
                         className="text-[#BB71FF] cursor-pointer hover:underline"
-                        onClick={() => navigate.push("/signup")}
+                        onClick={() => router.push("/signup")}
                     >
                         Sign up
                     </span>
