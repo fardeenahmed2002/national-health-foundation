@@ -45,7 +45,6 @@ export default function AppointmentLayout({
                             </div>
                         </div>
                     </div>
-
                     <ToastContainer position="top-center" />
                 </ContextProvider>
             </body>

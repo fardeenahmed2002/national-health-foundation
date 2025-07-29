@@ -1,7 +1,7 @@
 import { signup } from "@/controller/AuthController"
 import connectToDb from "@/utils/DataBaseConnection"
 import { NextResponse } from "next/server"
-
+// /api/auth/signup
 export const POST = async (req: Request): Promise<NextResponse> => {
     try {
         await connectToDb()

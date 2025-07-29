@@ -7,8 +7,12 @@ const userSchema = new mongoose.Schema({
     phone: String,
     address: String,
     isPatient: Boolean,
-    appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointment" }]
+    isAdmin: Boolean,
+    isModerator: Boolean,
+    curaId: String,
+    appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointment" }],
+    notices: [{ type: mongoose.Schema.Types.ObjectId, ref: "Notice" }]
 
-})
+}, { timestamps: true })
 
 export const Usermodel = mongoose.models.User || mongoose.model("User", userSchema);

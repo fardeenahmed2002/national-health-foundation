@@ -1,4 +1,5 @@
 
+import ApplicationModel from "@/model/ApplicationModel";
 import AppointmentModel from "@/model/AppointmentModel";
 import { Usermodel } from "@/model/UserModel";
 import { isMissing } from "@/utils/MissingFields";
@@ -94,5 +95,38 @@ export const getAppointments = async (userid: string) => {
   } catch (error) {
     console.error("appointment error:", error);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 })
+  }
+}
+
+
+
+export const applyApplication = async (userid: string, fullName: string, age: string, condition: string, description: string, prescriptionImage: string | null): Promise<NextResponse> => {
+  try {
+
+    if (!userid) {
+      return NextResponse.json({
+        success: false,
+        message: `not authed`
+      })
+    }
+    const newApplication = await ApplicationModel.create({
+      applicant: userid,
+      fullName,
+      age,
+      condition,
+      description,
+      prescriptionImage
+    })
+    return NextResponse.json({
+      success: true,
+      message: `application posted successfully`,
+      newApplication
+    })
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      message: `error to posting application`,
+      error: (error as Error).message
+    }, { status: 500 })
   }
 }

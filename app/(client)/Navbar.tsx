@@ -9,7 +9,6 @@ const Navbar = () => {
         <Image src={'/logo.png'} alt='logo' width={90} height={90} className='rounded-full ' />
         <Image src={'/name.png'} alt='logo' width={300} height={90} className='' />
       </div>
-
       <div>
         <NavLinks />
       </div>

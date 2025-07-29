@@ -105,11 +105,10 @@ export const signup = async (
             sameSite: process.env.NODE_ENV! === "production" ? "lax" : "strict",
             maxAge: 7 * 24 * 60 * 60,
             path: "/",
-        });
+        })
 
         return response
     } catch (error) {
-        console.log(error)
         return NextResponse.json({
             success: false,
             message: "server error",
@@ -146,6 +145,7 @@ export const login = async (email: string, password: string): Promise<NextRespon
                 id: user._id,
                 role: user.role,
                 isPatient: user.isPatient,
+                isAdmin: user.isAdmin
             },
             process.env.JWT_SECRET!,
             { expiresIn: `7d` }

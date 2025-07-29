@@ -41,6 +41,13 @@ const NavLinks = () => {
           </Link>
         </div>
       )}
+      {user?.isAdmin && (
+        <div className='flex flex-row space-x-6'>
+          <Link href={'/admin'} className='hover:text-[#BC71FF]'>Home</Link>
+          <Link href={'/admin/moderator'} className='hover:text-[#BC71FF]'>Assign Moderator</Link>
+          <Link href={'/admin/notice'} className='hover:text-[#BC71FF]'>Post a notice</Link>
+        </div>
+      )}
 
     </div>
   )

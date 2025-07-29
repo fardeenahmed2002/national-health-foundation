@@ -10,11 +10,16 @@ export async function middleware(request: NextRequest) {
     try {
         const secret = new TextEncoder().encode(process.env.JWT_SECRET)
         const { payload } = await jwtVerify(token, secret)
-        console.log(payload.isPatient)
         const { pathname } = request.nextUrl
-
         if (pathname.startsWith('/patient')) {
             if (payload.isPatient) {
+                return NextResponse.next()
+            } else {
+                return NextResponse.redirect(new URL('/', request.url))
+            }
+        }
+        if (pathname.startsWith('/admin')) {
+            if (payload.isAdmin) {
                 return NextResponse.next()
             } else {
                 return NextResponse.redirect(new URL('/', request.url))
@@ -30,6 +35,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/patient/:path*',
+        '/patient/:path*', '/admin/:path*'
     ],
 }

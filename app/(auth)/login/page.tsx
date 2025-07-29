@@ -54,6 +54,9 @@ const PatientSignupPage = () => {
         if (user?.isPatient) {
             navigate.push('/patient')
         }
+        if (user?.isAdmin) {
+            navigate.push('/admin')
+        }
     }, [user])
     return (
         <div className="min-h-screen bg-[#111926] text-white flex items-center justify-center px-4">
