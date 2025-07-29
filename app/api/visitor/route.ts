@@ -9,7 +9,8 @@ export const GET = async (): Promise<NextResponse> => {
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: `server error`
+            message: `server error`,
+            error: (error as Error).message
         }, { status: 500 })
     }
 }
