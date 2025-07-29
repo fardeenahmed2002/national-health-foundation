@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server"
 
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
     try {
-
         await connectToDb()
         const auth = await userAuth(req)
         if (!auth.authorized) {
@@ -33,7 +32,8 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: `server error`
+            message: `server error`,
+            error: (error as Error).message
         }, { status: 500 })
     }
 }

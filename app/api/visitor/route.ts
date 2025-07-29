@@ -2,7 +2,7 @@ import { getAllNotices } from "@/controller/VisitorController"
 import connectToDb from "@/utils/DataBaseConnection"
 import { NextResponse } from "next/server"
 
-export const GET = async (req: Request): Promise<NextResponse> => {
+export const GET = async (): Promise<NextResponse> => {
     try {
         await connectToDb()
         return getAllNotices()

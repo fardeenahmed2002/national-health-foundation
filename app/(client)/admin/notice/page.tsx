@@ -11,6 +11,7 @@ export default function NoticePage() {
         title: "",
         content: ""
     })
+    
     const [image, setImage] = useState<null | File>(null)
     const [preview, setPreview] = useState<null | string>(null)
     const [loading, setLoading] = useState(false)
