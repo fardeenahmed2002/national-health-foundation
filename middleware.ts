@@ -25,6 +25,13 @@ export async function middleware(request: NextRequest) {
                 return NextResponse.redirect(new URL('/', request.url))
             }
         }
+        if (pathname.startsWith('/moderator')) {
+            if (payload.isModerator) {
+                return NextResponse.next()
+            } else {
+                return NextResponse.redirect(new URL('/', request.url))
+            }
+        }
 
     } catch (err) {
         console.error('Invalid token', (err as Error).message)
@@ -35,6 +42,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/patient/:path*', '/admin/:path*'
+        '/patient/:path*', '/admin/:path*', '/moderator/:path*'
     ],
 }

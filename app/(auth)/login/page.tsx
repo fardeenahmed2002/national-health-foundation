@@ -57,6 +57,9 @@ const PatientSignupPage = () => {
         if (user?.isAdmin) {
             router.push('/admin')
         }
+        if (user?.isModerator) {
+            router.push('/moderator')
+        }
     }, [user, router])
     return (
         <div className="min-h-screen bg-[#111926] text-white flex items-center justify-center px-4">

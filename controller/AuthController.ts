@@ -143,9 +143,9 @@ export const login = async (email: string, password: string): Promise<NextRespon
         const token = jwt.sign(
             {
                 id: user._id,
-                role: user.role,
                 isPatient: user.isPatient,
-                isAdmin: user.isAdmin
+                isAdmin: user.isAdmin,
+                isModerator: user.isModerator
             },
             process.env.JWT_SECRET!,
             { expiresIn: `7d` }
@@ -208,6 +208,49 @@ export const isLoggedIn = async (req: NextRequest): Promise<NextResponse> => {
         return NextResponse.json({
             success: false,
             message: 'server error',
+            error: (error as Error).message
+        }, { status: 500 })
+    }
+}
+
+
+export const resetPassword = async (userid: string, currentPassword: string, newPassword: string, confirmPassword: string): Promise<NextResponse> => {
+
+    try {
+
+        if (newPassword !== confirmPassword) {
+            return NextResponse.json({
+                success: false,
+                message: `Please confirm your password`
+            }, { status: 400 })
+        }
+
+        const user = await Usermodel.findById(userid)
+        if (!user) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "User not found",
+                }, { status: 404 }
+            )
+        }
+        const valiedPassword = await bcrypt.compare(currentPassword, user.password)
+        if (!valiedPassword) {
+            return NextResponse.json({
+                success: false,
+                message: `Invalied current password`
+            }, { status: 401 })
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10)
+        await Usermodel.findByIdAndUpdate(userid, { password: hashedPassword })
+        return NextResponse.json({
+            success: true,
+            message: `password reset successfully!!!!`
+        })
+    } catch (error) {
+        return NextResponse.json({
+            success: false,
+            message: `server error`,
             error: (error as Error).message
         }, { status: 500 })
     }

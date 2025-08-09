@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { Upload } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import Image from "next/image";
-import axios from "axios";
-import { serverError } from "@/utils/ServerError";
+import React, { useState } from "react"
+import { Upload } from "lucide-react"
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+import Image from "next/image"
+import axios from "axios"
+
 type FormData = {
     fullName: string,
     age: string,
@@ -39,30 +39,26 @@ const MedicalAidForm = () => {
         urgencylevel: ""
     })
 
-    const [loading, setLoading] = useState(false);
-    const [prescriptionImage, setPrescriptionImage] = useState<File | null>(null);
-    const [preview, setPreview] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false)
+    const [prescriptionImage, setPrescriptionImage] = useState<File | null>(null)
+    const [preview, setPreview] = useState<string | null>(null)
 
     const prescriptionImg = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file) {
-            setPrescriptionImage(file);
-            setPreview(URL.createObjectURL(file));
+            setPrescriptionImage(file)
+            setPreview(URL.createObjectURL(file))
         }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!formData.fullName || !formData.age || !formData.condition || !formData.description || !prescriptionImage) {
-            setLoading(false)
-            toast.error(`all fields required`)
-            return
-        }
+        e.preventDefault()
+
         try {
             setLoading(true)
             axios.defaults.withCredentials = true
@@ -71,6 +67,15 @@ const MedicalAidForm = () => {
             form.append(`age`, formData.age)
             form.append(`condition`, formData.condition)
             form.append(`description`, formData.description)
+            form.append(`phoneNumber`, formData.phoneNumber)
+            form.append(`gender`, formData.gender)
+            form.append(`address`, formData.address)
+            form.append(`fund`, formData.fund)
+            form.append(`paymentMethod`, formData.paymentMethod)
+            form.append(`paymentNumber`, formData.paymentNumber)
+            form.append(`receiverName`, formData.receiverName)
+            form.append(`relation`, formData.relation)
+            form.append(`urgencylevel`, formData.urgencylevel)
             if (prescriptionImage) {
                 form.append("prescriptionImage", prescriptionImage);
             }
@@ -100,8 +105,15 @@ const MedicalAidForm = () => {
                 setPreview(null)
                 setLoading(false)
             }
-        } catch (error) {
-            toast.error(serverError((error as Error).message))
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                setLoading(false)
+                const errorMsg = error.response?.data?.message
+                toast.error(errorMsg)
+            }
+        }
+        finally {
+            setLoading(false)
         }
     }
 
@@ -302,7 +314,7 @@ const MedicalAidForm = () => {
                     >
                         {loading ? "Submitting..." : "Submit Application"}
                     </button>
-                    
+
                 </form>
             </div>
             <ToastContainer position="top-center" />

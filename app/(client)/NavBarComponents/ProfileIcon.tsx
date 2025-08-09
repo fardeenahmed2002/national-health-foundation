@@ -41,7 +41,8 @@ const ProfileIcon = () => {
                             <ul className="text-sm text-gray-700">
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                                     onClick={() => navigate.push('/pages/profile')}>Profile</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                onClick={()=>navigate.push('/pages/settings-page')}>Settings</li>
                                 <li
                                     onClick={logout}
                                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"

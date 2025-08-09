@@ -24,7 +24,7 @@ export const appointment = async (
       [reason, "reason"],
       [doctor, "doctor"]
     );
-    if (MissingFields) return MissingFields;
+    if (MissingFields) return MissingFields
 
 
     const appointmentDate = new Date(date).toISOString().split("T")[0];
@@ -100,33 +100,80 @@ export const getAppointments = async (userid: string) => {
 
 
 
-export const applyApplication = async (userid: string, fullName: string, age: string, condition: string, description: string, prescriptionImage: string | null): Promise<NextResponse> => {
+export const applyApplication = async (
+  userid: string,
+  fullName: string,
+  age: string,
+  condition: string,
+  description: string,
+  phoneNumber: string,
+  prescriptionImage: string | null,
+  gender: string,
+  address: string,
+  fund: number,
+  paymentMethod: string,
+  paymentNumber: string,
+  receiverName: string,
+  relation: string,
+  urgencylevel: string
+): Promise<NextResponse> => {
   try {
+    const MissingFields = isMissing(
+      [fullName, 'fullName'],
+      [age, 'age'],
+      [condition, 'condition'],
+      [description, 'description'],
+      [phoneNumber, 'phoneNumber'],
+      [prescriptionImage, 'prescriptionImage'],
+      [gender, 'gender'],
+      [address, 'address'],
+      [fund, 'fund'],
+      [paymentMethod, 'paymentMethod'],
+      [paymentNumber, 'paymentNumber'],
+      [receiverName, 'receiverName'],
+      [relation, 'relation'],
+      [urgencylevel, 'urgencylevel']
+    );
+    if (MissingFields) return MissingFields;
 
     if (!userid) {
       return NextResponse.json({
         success: false,
-        message: `not authed`
-      })
+        message: `not authed`,
+      });
     }
+
     const newApplication = await ApplicationModel.create({
       applicant: userid,
       fullName,
       age,
       condition,
       description,
-      prescriptionImage
-    })
+      phoneNumber,
+      prescriptionImage,
+      gender,
+      address,
+      fund,
+      paymentMethod,
+      paymentNumber,
+      receiverName,
+      relation,
+      urgencylevel
+    });
+
     return NextResponse.json({
       success: true,
       message: `application posted successfully`,
-      newApplication
-    })
+      newApplication,
+    });
   } catch (error) {
-    return NextResponse.json({
-      success: false,
-      message: `error to posting application`,
-      error: (error as Error).message
-    }, { status: 500 })
+    return NextResponse.json(
+      {
+        success: false,
+        message: `error to posting application`,
+        error: (error as Error).message,
+      },
+      { status: 500 }
+    );
   }
-}
+};

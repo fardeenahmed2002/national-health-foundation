@@ -56,7 +56,7 @@ const AssignModeratorPage = () => {
         } catch (error: unknown) {
             setLoading(false)
             if (axios.isAxiosError(error)) {
-                const errMessage = error.response?.data?.message || "Something went wrong";
+                const errMessage = error.response?.data?.message;
                 toast.error(errMessage)
                 setLoading(false)
             } else {

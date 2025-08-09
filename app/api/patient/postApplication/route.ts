@@ -20,6 +20,16 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
         const age = formData.get('age') as string
         const condition = formData.get('condition') as string
         const description = formData.get('description') as string
+        const phoneNumber = formData.get('phoneNumber') as string
+        const gender = formData.get('gender') as string
+        const address = formData.get('address') as string
+        const fund = Number(formData.get('fund')?.toString() || 0)
+        const paymentMethod = formData.get('paymentMethod') as string
+        const paymentNumber = formData.get('paymentNumber') as string
+        const receiverName = formData.get('receiverName') as string
+        const relation = formData.get('relation') as string
+        const urgencylevel = formData.get('urgencylevel') as string
+
         let prescriptionImage
         try {
             prescriptionImage = await uploadImage(formData, `prescriptionImage`, `prescriptionImage`, 2)
@@ -29,7 +39,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
                 message: (uploadError as Error).message
             }, { status: 501 })
         }
-        const result = await applyApplication(auth.userid, fullName, age, condition, description, prescriptionImage)
+        const result = await applyApplication(auth.userid, fullName, age, condition, description, phoneNumber, prescriptionImage, gender, address, fund, paymentMethod, paymentNumber, receiverName, relation, urgencylevel)
         return result
     } catch (error) {
         return NextResponse.json({

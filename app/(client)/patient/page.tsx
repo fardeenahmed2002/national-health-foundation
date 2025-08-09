@@ -48,7 +48,7 @@ const Dashboard = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card 1: Appointment */}
+       
         <div className="bg-[#1c2333] p-5 rounded-xl shadow-md hover:shadow-lg transition">
           <div className="flex items-center gap-3 mb-3">
             <div className="bg-[#2a324a] text-[#BB71FF] p-3 rounded-full">
@@ -78,7 +78,7 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* Card 2: Fund Collected */}
+        
         <div className="bg-[#1c2333] p-5 rounded-xl shadow-md hover:shadow-lg transition">
           <div className="flex items-center gap-3 mb-3">
             <div className="bg-[#2a324a] text-[#BB71FF] p-3 rounded-full">
@@ -89,7 +89,7 @@ const Dashboard = () => {
           <p className="text-2xl font-bold text-green-400">$20</p>
         </div>
 
-        {/* Card 3: Next Visit */}
+      
         <div className="bg-[#1c2333] p-5 rounded-xl shadow-md hover:shadow-lg transition">
           <div className="flex items-center gap-3 mb-3">
             <div className="bg-[#2a324a] text-[#BB71FF] p-3 rounded-full">

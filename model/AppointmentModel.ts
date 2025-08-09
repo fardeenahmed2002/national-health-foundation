@@ -13,7 +13,10 @@ const appointmentSchema = new mongoose.Schema({
     patientName: {
         type: String,
     },
-    id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
     age: {
         type: Number,
     },
