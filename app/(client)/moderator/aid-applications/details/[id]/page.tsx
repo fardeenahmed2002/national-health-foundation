@@ -61,8 +61,8 @@ const Page = () => {
                 <Image
                   src={fullData.prescriptionImage}
                   alt="Prescription"
-                  width={800} // Adjust based on your layout
-                  height={600} // Adjust based on your layout
+                  width={800}
+                  height={600}
                   className="w-full h-auto rounded-xl border border-[#BB71FF]/30 object-cover"
                 />
               </div>
