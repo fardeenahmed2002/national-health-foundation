@@ -59,7 +59,7 @@ const Page = () => {
     useEffect(() => {
         deBouncedSearch(searchText, urgency, fund)
         return () => deBouncedSearch.cancel()
-    }, [searchText, urgency, fund])
+    }, [searchText, urgency, fund, deBouncedSearch])
 
     return (
         <div className="bg-[#0E1724] h-[515px] text-white py-6">

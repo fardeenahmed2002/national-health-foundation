@@ -8,7 +8,7 @@ import { useContext, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const page = () => {
+const Page = () => {
     const { id } = useParams() as { id: string }
     const { user } = useContext(Context)
     const searchParamns = useSearchParams()
@@ -85,4 +85,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

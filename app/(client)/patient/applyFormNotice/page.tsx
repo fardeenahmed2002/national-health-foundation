@@ -8,11 +8,13 @@ const Page = () => {
             <div className="bg-[#1c2333] border-l-4 border-[#BB71FF] text-white p-6 rounded-xl max-w-3xl mx-auto mt-10 shadow-lg">
                 <h2 className="text-xl font-semibold text-[#BB71FF] mb-3">⚠️ Important Notice</h2>
                 <p className="text-[#cccccc] leading-7">
-                    To ensure fairness and authenticity, please make sure that the patient's information provided in this application
+                    To ensure fairness and authenticity, please make sure that the patient&apos;s information provided in this application
                     <span className="text-[#BB71FF] font-bold"> exactly matches</span> the information shown on the attached medical documents (such as prescriptions or diagnosis papers).
                 </p>
                 <ul className="mt-4 space-y-2 text-[#cccccc] list-disc pl-5">
-                    <li><span className="text-white font-bold">Full Name</span> must match exactly with the prescription.</li>
+                    <li>
+                        <span className="text-white font-bold">Full Name</span> must match exactly with the prescription
+                    </li>
                     <li><span className="text-white font-bold">Age</span> and <span className="text-white font-bold">medical condition</span> should be consistent with the documents.</li>
                     <li>Use official documents only — handwritten or unverified sources may lead to disapproval.</li>
                     <li>Duplicate submissions for the same patient from multiple accounts may be flagged and reviewed.</li>

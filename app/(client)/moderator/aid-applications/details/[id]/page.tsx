@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Skeleton from './Skeleton'
+import Image from 'next/image'
 
 type DetailsType = {
   _id: string,
@@ -55,9 +56,11 @@ const Page = () => {
           (
             <div className="flex flex-col md:flex-row gap-8">
               <div className="md:w-1/3 w-full">
-                <img
+                <Image
                   src={fullData.prescriptionImage}
                   alt="Prescription"
+                  width={800} // Adjust based on your layout
+                  height={600} // Adjust based on your layout
                   className="w-full h-auto rounded-xl border border-[#BB71FF]/30 object-cover"
                 />
               </div>
