@@ -1,12 +1,9 @@
 import { applicationsById } from '@/controller/ModeratorController'
 import { NextResponse } from 'next/server'
 
-export async function GET(
-    request: Request,
-    { params }: { params: { id: string } }
-): Promise<NextResponse> {
+export async function GET(request: Request, context: any): Promise<NextResponse> {
     try {
-        const { id } = params
+        const { id } = context.params
         return await applicationsById(id)
     } catch (error) {
         return NextResponse.json(
