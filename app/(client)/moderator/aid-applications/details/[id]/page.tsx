@@ -1,11 +1,11 @@
 "use client"
 
 import axios from 'axios'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Skeleton from './Skeleton'
-import Image from 'next/image'
 
 type DetailsType = {
   _id: string,
@@ -29,20 +29,22 @@ const Page = () => {
   const { id } = useParams() as { id: string }
   const [fullData, setFullData] = useState<DetailsType | null>(null)
 
-  const getFullDetails = async () => {
-    try {
-      axios.defaults.withCredentials = true
-      const { data } = await axios.get(`/api/moderator/aid-applications-by-id/${id}`)
-      if (data.success) {
-        setFullData(data.details)
-      }
-    } catch (error) {
-      console.error("Error fetching details", error)
-    }
-  }
+
 
   useEffect(() => {
-    if (id) getFullDetails()
+    if (!id) return
+    const getFullDetails = async () => {
+      try {
+        axios.defaults.withCredentials = true
+        const { data } = await axios.get(`/api/moderator/aid-applications-by-id/${id}`)
+        if (data.success) {
+          setFullData(data.details)
+        }
+      } catch (error) {
+        console.error("Error fetching details", error)
+      }
+    }
+    getFullDetails()
   }, [id])
 
 
